@@ -47,13 +47,10 @@ router.post('/', (req, res) => {
       res.json(err);
     });
 })
-  // create a new category
-  
 
-// });
 
+//UPDATE CATEGORY BY ID
 router.put('/:id', (req, res) => {
-  // update a category by its `id` value
   Category.update({
     category_name: req.body.category_name,
   },
@@ -62,7 +59,7 @@ router.put('/:id', (req, res) => {
       id: req.params.id
     }
   }) .then((updateCategory) => {
-    res.send("Successfully updated category...")
+    res.json("Successfully updated category...")
   }) .catch((err) => res.json(err));
 });
 
@@ -75,7 +72,7 @@ router.delete('/:id', async (req, res) => {
         id: req.params.id,
       },
     }); 
-    res.json(deleteCat) 
+    res.json("Category deleted...") 
   } catch(err) {
     res.send(err)
   }

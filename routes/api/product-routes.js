@@ -62,7 +62,7 @@ router.post('/', (req, res) => {
     });
 });
 
-// update product
+// update product FOREIGN KEY CONSTRAINT
 router.put('/:id', (req, res) => {
   // update product data
   Product.update(req.body, {
@@ -107,12 +107,12 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
   try {
-    const deleteProd = await Category.destroy({
+    const deleteProd = await Product.destroy({
       where: {
         id: req.params.id,
       },
     }); 
-    res.json(deleteProd) 
+    res.json("Deleted product...") 
   } catch(err) {
     res.send(err)
   }

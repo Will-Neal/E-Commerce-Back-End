@@ -10,7 +10,6 @@ router.get('/', async (req, res) => {
   try {
     const tag = await Tag.findAll({
       include: [{ model:Product }],
-      attributes: ['product_name', 'price', 'stock', 'category_id']
     });
     return res.json(tag)
   } catch(err) {
@@ -50,10 +49,31 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
+  Tag.update(
+    {
+    tag_name: req.body.tag_name,
+  },
+  {
+    where: {
+      id: req.params.id
+    }
+  }) .then((updateTag) => {
+    res.json("Successfully updated category...");
+  }) .catch((err) => res.json(err));
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   // delete on tag by its `id` value
+  try {
+    const deleteTag = await Tag.destroy({
+      where: {
+        id: req.params.id,
+      },
+    }); 
+    res.json("Deleted tag...") 
+  } catch(err) {
+    res.send(err)
+  }
 });
 
 module.exports = router;
