@@ -21,6 +21,9 @@
 
   For a video demonstration of the application in use [click here.](https://drive.google.com/file/d/1h_3jXw4txijNn4uMl2eTgcQVwXnmqtHa/view)
 
+  ![Terminal Screenshot](https://github.com/Will-Neal/E-Commerce-Back-End/blob/main/assets/seeding.jpg?raw=true)
+  ![Insomnia Screenshot](https://github.com/Will-Neal/E-Commerce-Back-End/blob/main/assets/insomnia%20.jpg?raw=true)
+
   ## License
 
   ![License Badge](https://img.shields.io/badge/license-MIT-orange?style=plastic=appveyor?raw=true)
