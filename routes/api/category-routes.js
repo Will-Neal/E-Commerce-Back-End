@@ -4,43 +4,40 @@ const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
 
+//GET all categories and associated products
 router.get('/', async (req, res) => {
   try {
     const categories = await Category.findAll({
       include: [{ model: Product }],
-    }); 
+    });
     return res.json(categories)
-  } catch(err){
+  } catch (err) {
     console.log(err)
     res.json(err)
   }
-  // find all categories
-
-  // be sure to include its associated Products
 });
 
+//GET the specific category given by the URL parameter as well as the product associated with it
 router.get('/:id', async (req, res) => {
   const id = req.params.id
   try {
-    const category = await Category.findOne({ 
+    const category = await Category.findOne({
       where: { id },
-      include: [{ model:Product }]
+      include: [{ model: Product }]
     })
     return res.json(category)
-  } catch(err) {
+  } catch (err) {
     console.log(err)
   }
-  // find one category by its `id` value
-  // be sure to include its associated Products
 });
 
+//POST request to create a category with the value given by the category name in the JSON of the request body
 router.post('/', (req, res) => {
   console.log(req.body)
   Category.create({
     category_name: req.body.category_name,
   })
     .then((newBook) => {
-      // Send the newly created row as a JSON object
       res.json(newBook);
     })
     .catch((err) => {
@@ -49,34 +46,33 @@ router.post('/', (req, res) => {
 })
 
 
-//UPDATE CATEGORY BY ID
+//UPDATE the name of the specific category defined by the ID in the URL parameter with the value given by category_name in the JSON of the request body
 router.put('/:id', (req, res) => {
   Category.update({
     category_name: req.body.category_name,
   },
-  {
-    where: {
-      id: req.params.id
-    }
-  }) .then((updateCategory) => {
-    res.json("Successfully updated category...")
-  }) .catch((err) => res.json(err));
+    {
+      where: {
+        id: req.params.id
+      }
+    }).then((updateCategory) => {
+      res.json("Successfully updated category...")
+    }).catch((err) => res.json(err));
 });
 
-//Only deletes Categories that Have NO products associated with them
+//DELETE category defined by the ID given in the URL parameter
 router.delete('/:id', async (req, res) => {
-  // delete a category by its `id` value
   try {
     const deleteCat = await Category.destroy({
       where: {
         id: req.params.id,
       },
-    }); 
-    res.json("Category deleted...") 
-  } catch(err) {
+    });
+    res.json("Category deleted...")
+  } catch (err) {
     res.send(err)
   }
-  
+
 });
 
 module.exports = router;
